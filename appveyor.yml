@@ -4,12 +4,20 @@ image: Visual Studio 2019
 branches:
   only:
   - master
-#environment:
+environment:
 #  SONAR_TOKEN:
 #    secure: 1le4hKhDyj6UuukBpuVK6a7LQT98MINrDKnDilQI8HhW5sYHWKzZnROmphFDHc2/
-#  CODECOV_TOKEN:
-#    secure: Aq9F+tLDv0Jh091xMqqa+bve7b6FgoXllUJ2pPRLHafcvHH9euNb478dOeuEsTLi
+   CODECOV_TOKEN:
+     secure: 0xbrDlIAs6NDcEgALFNFrp6TmfkEU1dzaAMPSjbt3VxD4L+evvkpx+FuYOXfl3Dp
 
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 skip_commits:
   files:
   - README.md
