@@ -23,9 +23,8 @@ skip_commits:
   - README.md
 
 before_build:
-  - choco install jre8
-  #- choco install codecov
-  #- choco install xunit
+ 
+  - choco install codecov
   - dotnet tool install -g dotnet-sonarscanner
   - dotnet tool install --global coverlet.console
   - nuget restore
@@ -36,28 +35,10 @@ build:
 
 after_build:
    - ps: >-
-            Write-Output "-------------------- Getting vars before add env var ----------------------------"
-            
-            Get-ChildItem Env:
-            
-            Write-Output "------------------------------ Adding ---------------------------------------------"
-            
-            $env:JAVA_HOME = "C:\Program Files\Java\jre1.8.0_211\"
-            
-            Write-Output "------------------------------ Added ---------------------------------------------"
-            
-            Get-ChildItem Env:
-            
-            Get-ChildItem "C:\Program Files\"
-            
-            #dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$env:SONAR_TOKEN"
-            
-            #dotnet build .\CICDTools\CICDTools.csproj
-            
-            #dotnet-sonarscanner end /d:sonar.login="$env:SONAR_TOKEN"
+            $env:JAVA_HOME = "C:\Program Files\Java\jdk1.8.0"
             
 test_script:
-  - dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$env:SONAR_TOKEN"
+  - dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$env:SONAR_TOKEN
   - coverlet ./CICDTools.Tests/bin/Debug/netcoreapp2.2/CICDTools.Tests.dll --target "dotnet" --targetargs "test ./CICDTools.Tests/CICDTools.Tests.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/CICDTools.Tests.xml
-  - dotnet-sonarscanner end /d:sonar.login="$env:SONAR_TOKEN"
+  - dotnet-sonarscanner end /d:sonar.login=$env:SONAR_TOKEN
   - ps: codecov -f .\testResults\CICDTools.Tests.xml -t $env:CODECOV_TOKEN
