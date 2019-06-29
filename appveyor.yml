@@ -36,7 +36,14 @@ build:
 
 after_build:
    - ps: >-
-            $env:JAVA_HOME = "C:\Program Files\Java\jre1.8.0_211\bin\"
+            Write-Output "-------------------- Getting vars before add env var ----------------------------"
+            Get-ChildItem Env:
+            
+            Write-Output "------------------------------ Adding ---------------------------------------------"
+            
+            $env:JAVA_HOME = "C:\Program Files\Java\jre1.8.0_211\"
+            
+            Write-Output "------------------------------ Added ---------------------------------------------"
             
             Get-ChildItem Env:
             
