@@ -35,11 +35,12 @@ build:
 
 after_build:
    - ps: >-
-            $env:JAVA_HOME = "C:\Program Files\Java\jdk1.8.0"
+            $env:JAVA_HOME = "C:\Program Files\Java\jdk1.8.0\"
             
             Get-ChildItem Env:
             
 test_script:
+  - ps: Write-Output $env:SONAR_TOKEN
   - dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$env:SONAR_TOKEN"
   - coverlet ./CICDTools.Tests/bin/Debug/netcoreapp2.2/CICDTools.Tests.dll --target "dotnet" --targetargs "test ./CICDTools.Tests/CICDTools.Tests.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/CICDTools.Tests.xml
   - dotnet-sonarscanner end /d:sonar.login="$env:SONAR_TOKEN"
