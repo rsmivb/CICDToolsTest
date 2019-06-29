@@ -5,8 +5,8 @@ branches:
   only:
   - master
 environment:
-#  SONAR_TOKEN:
-#    secure: 1le4hKhDyj6UuukBpuVK6a7LQT98MINrDKnDilQI8HhW5sYHWKzZnROmphFDHc2/
+   SONAR_KEY:
+     secure: Vgk2JJs/E58YhjR1gLjj0Au0LKs4+GWjuVqgHVQmPP+kV2WN2hylsxkPii43ITVC
    CODECOV_TOKEN:
      secure: 0xbrDlIAs6NDcEgALFNFrp6TmfkEU1dzaAMPSjbt3VxD4L+evvkpx+FuYOXfl3Dp
 
