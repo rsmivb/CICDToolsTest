@@ -24,6 +24,7 @@ skip_commits:
 
 before_build:
   - choco install jre8
+  - ps: [Environment]::SetEnvironmentVariable("JAVA_HOME","C:\Program Files\Java\jre1.8.0_211\bin\")
   #- choco install codecov
   #- choco install xunit
   - dotnet tool install -g dotnet-sonarscanner
