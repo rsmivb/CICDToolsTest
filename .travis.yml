@@ -17,8 +17,9 @@ env:
 services:
   - xvfb
 script:
-  - dotnet restore
-  - dotnet build
-  - dotnet test CICDTools.Tests/CICDTools.Tests.csproj
+  - mono ../tools/sonar/SonarQube.Scanner.MSBuild.exe begin /n:NGenerics /k:ngenerics-github /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths="*/TestResults/.trx" /v:"2.0"
+  - dotnet restore -verbosity quiet
+  - dotnet build -verbosity quiet
+  - dotnet test CICDTools.Tests/CICDTools.Tests.csproj 
 after_script:
   - bash <(curl -s https://codecov.io/bash)
