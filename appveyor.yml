@@ -35,8 +35,8 @@ build:
 
 test_script:
   #- ps: $env:JAVA_HOME = "C:\Program Files\Java\jre1.8.0_211\"
-  - dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="1102ae5d4f8355b439e3b377010b0107fd502446"
+  - dotnet-sonarscanner begin /k:"rsmivb_CICDTools" /o:"rsmivb-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$env:SONAR_TOKEN"
   - dotnet build CICDTools.sln -v quiet
   - coverlet ./CICDTools.Tests/bin/Debug/netcoreapp2.2/CICDTools.Tests.dll --target "dotnet" --targetargs "test ./CICDTools.Tests/CICDTools.Tests.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/CICDTools.Tests.xml
-  - dotnet-sonarscanner end /d:sonar.login="1102ae5d4f8355b439e3b377010b0107fd502446"
+  - dotnet-sonarscanner end /d:sonar.login="$env:SONAR_TOKEN"
   - ps: codecov -f .\testResults\CICDTools.Tests.xml -t $env:CODECOV_TOKEN
