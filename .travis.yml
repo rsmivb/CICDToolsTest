@@ -7,8 +7,16 @@ os: linux
 solution: CICDTools.sln
 install:
   - dotnet restore
+<<<<<<< HEAD
   - choco install codecov
   - dotnet tool install --global coverlet.console
+=======
+  - dotnet tool install -g dotnet-sonarscanner
+  - dotnet tool install --global coverlet.console
+  - Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+  - choco install jre8
+  - choco install codecov
+>>>>>>> 75ba7fe95e0822eb49359458f1d04e1840562035
 branches:
   only:
     - master
@@ -19,9 +27,12 @@ env:
 services:
   - xvfb
 script:
-  - dotnet restore
-  - dotnet build
+  - dotnet restore -verbosity quiet
+  - dotnet build -verbosity quiet
   - dotnet test CICDTools.Tests/CICDTools.Tests.csproj
+<<<<<<< HEAD
   - coverlet ./Lottery.Models.Test/bin/Debug/netcoreapp2.2/Lottery.Models.Test.dll --target "dotnet" --targetargs "test ./Lottery.Models.Test/Lottery.Models.Test.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/lotteryApp.Model.xml
 after_script:
   - bash <(curl -s https://codecov.io/bash)
+=======
+>>>>>>> 75ba7fe95e0822eb49359458f1d04e1840562035
