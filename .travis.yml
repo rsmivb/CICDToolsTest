@@ -9,7 +9,7 @@ install:
 #  - dotnet tool install -g coveralls.net
 #  - dotnet tool install -g dotnet-sonarscanner
 #  - dotnet tool install --global coverlet.console
-  - nuget restore -v quiet
+#  - nuget restore -v quiet
   
 branches:
   only:
