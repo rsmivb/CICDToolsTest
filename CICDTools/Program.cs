@@ -6,12 +6,8 @@ namespace CICDTools
     {
         static void Main(string[] args)
         {
-            PrimeService primeService = new PrimeService();
-
-            var candidateToPrime = 789;
-            var result = primeService.IsPrime(candidateToPrime) ? "is" : "isn't";
-
-            Console.WriteLine($"Number {candidateToPrime} {result} prime.");
+            var isPrime = new NumberService().IsPrime(789);
+            //var isOdd = new NumberService().IsOdd(789);
         }
     }
 }
