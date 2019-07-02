@@ -31,7 +31,7 @@ before_build:
 
 build:
   project: CICDTools.sln
-  verbosity: minimal
+  verbosity: quiet
 
 test_script:
   #- ps: $env:JAVA_HOME = "C:\Program Files\Java\jre1.8.0_211\"
