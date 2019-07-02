@@ -6,9 +6,9 @@ dotnet: 2.2
 os: linux
 solution: CICDTools.sln
 install:
-  - dotnet tool install -g coveralls.net
-  - dotnet tool install -g dotnet-sonarscanner
-  - dotnet tool install --global coverlet.console
+#  - dotnet tool install -g coveralls.net
+#  - dotnet tool install -g dotnet-sonarscanner
+#  - dotnet tool install --global coverlet.console
   - nuget restore -v quiet
   
 branches:
@@ -21,9 +21,9 @@ env:
 services:
   - xvfb
 script:
-  - dotnet restore -verbosity quiet
-  - dotnet build -verbosity quiet
+  - dotnet restore -v quiet
+#  - dotnet build -v quiet
   - dotnet test CICDTools.Tests/CICDTools.Tests.csproj
-  - coverlet ./Lottery.Models.Test/bin/Debug/netcoreapp2.2/Lottery.Models.Test.dll --target "dotnet" --targetargs "test ./Lottery.Models.Test/Lottery.Models.Test.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/lotteryApp.Model.xml
+#  - coverlet ./Lottery.Models.Test/bin/Debug/netcoreapp2.2/Lottery.Models.Test.dll --target "dotnet" --targetargs "test ./Lottery.Models.Test/Lottery.Models.Test.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/lotteryApp.Model.xml
 after_script:
   - bash <(curl -s https://codecov.io/bash)
