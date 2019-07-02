@@ -7,6 +7,8 @@ os: linux
 solution: CICDTools.sln
 install:
   - dotnet restore
+  - choco install codecov
+  - dotnet tool install --global coverlet.console
 branches:
   only:
     - master
@@ -20,5 +22,6 @@ script:
   - dotnet restore
   - dotnet build
   - dotnet test CICDTools.Tests/CICDTools.Tests.csproj
+  - coverlet ./Lottery.Models.Test/bin/Debug/netcoreapp2.2/Lottery.Models.Test.dll --target "dotnet" --targetargs "test ./Lottery.Models.Test/Lottery.Models.Test.csproj --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover" --format opencover --output ./testResults/lotteryApp.Model.xml
 after_script:
   - bash <(curl -s https://codecov.io/bash)
